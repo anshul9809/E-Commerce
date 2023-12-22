@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://anshul9809/E-Commerce"
   },
-  "author": "Anshul Kmar",
+  "author": "Anshul Kumar",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
