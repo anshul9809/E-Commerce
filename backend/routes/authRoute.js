@@ -1,0 +1,31 @@
+const express = require("express");
+const router = express.Router();
+const UserController = require("../controllers/UserController");
+const authMiddleware = require("../middlewares/authMiddleware");
+
+router.post("/register", UserController.registerUser);
+router.post("/login", UserController.loginUser);
+router.post("/forgot-password-token", UserController.forgotPasswordToken);
+router.put("/reset-password/:token", UserController.resetPassword);
+router.get("/all-users", authMiddleware.authMiddleware , authMiddleware.isAdmin ,UserController.getUsers);
+router.get("/:id", authMiddleware.authMiddleware ,UserController.singleUser);
+router.delete("/:id", authMiddleware.authMiddleware ,UserController.deleteUser);
+router.put(":/id", authMiddleware.authMiddleware ,UserController.updateUser);
+router.put("block-user/:id", authMiddleware.authMiddleware , authMiddleware.isAdmin ,UserController.blockUser);
+router.put("unblock-user/:/id", authMiddleware.authMiddleware , authMiddleware.isAdmin ,UserController.unblockUser);
+router.get("/refresh", UserController.handleRefreshToken);
+router.get("/logout", UserController.logoutUser);
+router.put("/password", authMiddleware.authMiddleware, UserController.updatePassword);
+router.post("/admin-login", UserController.loginAdmin);
+router.put("/wishlist", authMiddleware.authMiddleware, UserController.addToWishlist);
+router.get("/wishlist", authMiddleware.authMiddleware, UserController.getWishlist);
+router.put("/save-address", authMiddleware.authMiddleware, UserController.saveAddress);
+router.post("/add-to-cart/", authMiddleware.authMiddleware, UserController.addToCart);
+router.get("/cart", authMiddleware.authMiddleware, UserController.getUserCart);
+router.delete("/empty-cart", authMiddleware.authMiddleware, UserController.emptyCart);
+router.post("/cart/apply-coupon", authMiddleware.authMiddleware, UserController.applyCoupon);
+router.post("cart/create-order", authMiddleware.authMiddleware, UserController.createOrder);
+router.get("/get-orders", authMiddleware.authMiddleware, UserController.listOrders);
+router.put("/order/update-order-status/:id", authMiddleware.authMiddleware , authMiddleware.isAdmin ,UserController.updateOrderStatus);
+
+module.exports = router;
