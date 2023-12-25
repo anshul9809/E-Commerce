@@ -10,8 +10,9 @@ const { generateRefreshToken } = require("../config/refreshToken");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const crypto = require("crypto");
 const uniqid = require("uniqid");
-//function for registering user on site
+const {sendMail} = require("./EmailController");
 
+//function for registering user on site
 module.exports.registerUser = expressAsyncHandler(async (req,res)=>{
     try{
         //check if the email is already in use or not
@@ -261,7 +262,7 @@ module.exports.forgotPasswordToken = expressAsyncHandler(async (req,res)=>{
                 text: "Hey, user",
                 htm: resetUrl,
             };
-            sendEmail(data);
+            sendMail(data);
             res.json(token);
         }catch(err){
             console.log("Error in generating token ", err);
